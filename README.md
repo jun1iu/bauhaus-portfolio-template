@@ -4,6 +4,12 @@ A minimal, Bauhaus-inspired portfolio website with its own **admin panel**. Use 
 
 **Everything on the site is placeholder "Lorem ipsum" text.** Replace it with your own in the admin, in about ten minutes (see [Make it yours](#make-it-yours)).
 
+![The home page: a large "Lorem Ipsum." headline beside overlapping blue, red and yellow shapes](docs/screenshots/home.png)
+
+| Frames (gallery) | About | Contact | Home on a phone |
+| --- | --- | --- | --- |
+| ![Gallery page](docs/screenshots/gallery.png) | ![About page](docs/screenshots/about.png) | ![Contact page](docs/screenshots/contact.png) | ![Home page on a phone](docs/screenshots/home-mobile.png) |
+
 **On this page:** [Quick start](#quick-start) · [Make it yours](#make-it-yours) · [Using the admin](#using-the-admin) · [Putting it online](#putting-it-online) · [Commands](#commands) · [Project layout](#project-layout) · [How it works](#how-it-works-for-developers) · [Troubleshooting](#troubleshooting) · [License](#license)
 
 ## What you get
