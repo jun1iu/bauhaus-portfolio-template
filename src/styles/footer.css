@@ -1,0 +1,15 @@
+/* ---------- Footer (shared by every page) ---------- */
+footer{background:var(--ink);color:var(--paper)}
+footer .wrap{display:grid;gap:28px;padding-block:clamp(36px,6vw,72px) 28px}
+footer .in-short{list-style:none;margin:0;padding:0;font-size:clamp(24px,3.4vw,48px);line-height:1.1;font-weight:700;letter-spacing:-.015em;text-transform:uppercase}
+footer .in-short li:nth-child(2){color:var(--yellow)}
+footer .in-short li:nth-child(3){color:var(--blue-soft)}
+.foot-mark{width:120px;height:40px;isolation:isolate}
+.foot-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 20px;padding-top:20px;border-top:2px solid var(--ink-line);font-family:var(--mono);font-size:var(--label);letter-spacing:var(--track);text-transform:uppercase;color:var(--paper-soft)}
+.foot-mid{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 28px}
+.social{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0}
+.social a{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border:2px solid var(--paper);color:var(--paper);text-decoration:none;transition:background .15s,color .15s,transform .2s var(--ease)}
+.social a:hover{background:var(--yellow);border-color:var(--yellow);color:var(--ink);transform:translateY(-2px)}
+.social svg{width:22px;height:22px;fill:currentColor}
+.social svg.line{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:square;stroke-linejoin:miter}
+.social svg.line circle[fill]{stroke:none}

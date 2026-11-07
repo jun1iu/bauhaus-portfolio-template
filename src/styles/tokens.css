@@ -1,0 +1,32 @@
+/* ---------- Design tokens: the Bauhaus palette is three primaries, black and paper ---------- */
+:root{
+  --paper:#F2ECDD;
+  --white:#FFFBF1;
+  --ink:#121212;
+  --muted:#58544A;
+  --red:#DB2A1B;
+  --yellow:#F7C01D;
+  --blue:#1D3FA8;
+  --on-color:#FFFFFF;
+  --red-text:#B3170B;       /* red dark enough for small text on paper */
+  --blue-soft:#8EA6F2;      /* blue for text on ink */
+  --paper-soft:#B9B3A2;     /* secondary text on ink */
+  --ink-line:#444;          /* hairline on ink */
+  --unlit:#8C836C;          /* statement words not yet lit (3:1 on paper) */
+  --yellow-tint:#FFF6DC;
+  --veil:rgba(18,18,18,.97);
+  --grid-line:rgba(18,18,18,.22);
+  --label:12px;             /* every small mono caption */
+  --track:.14em;            /* tracking for uppercase labels */
+  --off-s:6px;              /* hard shadow offsets: buttons and focus */
+  --off-l:10px;             /* hard shadow offsets: cards */
+  --rule:3px solid var(--ink);
+  --rule-thin:2px solid var(--ink);
+  --nav:64px;
+  --gutter:clamp(16px,3.2vw,48px);
+  --display:"Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  --body:"Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:light;
+}

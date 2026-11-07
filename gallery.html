@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- include: head.html -->
+<title>Frames · Lorem Ipsum</title>
+<meta name="description" content="Illustrated frames of lorem ipsum dolor sit amet, with photographs coming soon.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Frames · Lorem Ipsum">
+<meta property="og:description" content="Illustrated frames of lorem ipsum dolor sit amet, with photographs coming soon.">
+</head>
+<body>
+<!-- include: nav.html -->
+
+<main id="main" class="page">
+  <section class="block" id="work" data-component="gallery">
+    <div class="wrap">
+      <div class="gal-head">
+        <div>
+          <h1 class="page-title">Lorem ipsum, in frames</h1>
+          <p class="note" data-gallery-note>Illustrated placeholders · photographs coming soon</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filter frames" data-gallery-filters></div>
+      </div>
+      <div class="frames-grid" data-gallery-grid></div>
+    </div>
+  </section>
+
+  <div class="film" aria-hidden="true" data-component="film" data-hydrate="visible"><div class="film-track"></div></div>
+
+</main>
+
+<!-- include: footer.html -->
+<div class="lb" hidden role="dialog" aria-modal="true" aria-label="Frame viewer" data-component="lightbox">
+  <span class="lb-count" data-lb-count></span>
+  <button class="lb-close" type="button" data-lb-close>Close ✕</button>
+  <figure><canvas></canvas><img alt="" hidden><figcaption data-lb-caption></figcaption></figure>
+  <div class="lb-navs">
+    <button class="lb-nav prev" type="button" aria-label="Previous frame" data-lb-prev>←</button>
+    <button class="lb-nav next" type="button" aria-label="Next frame" data-lb-next>→</button>
+  </div>
+</div>
+</body>
+</html>

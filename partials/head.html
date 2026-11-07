@@ -1,0 +1,35 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2ECDD">
+<meta name="color-scheme" content="light">
+<meta name="twitter:card" content="summary">
+<meta property="og:site_name" content="Lorem Ipsum">
+<script>try{var d=document.documentElement;d.classList.add("preload");setTimeout(function(){d.classList.remove("preload")},8000)}catch(e){}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F2ECDD'/%3E%3Ccircle cx='24' cy='24' r='18' fill='%231D3FA8'/%3E%3Crect x='24' y='24' width='30' height='30' fill='%23DB2A1B'/%3E%3Cpath d='M8 58 30 34l22 24z' fill='%23F7C01D' fill-opacity='.9'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<script type="module" src="/src/main.js" blocking="render"></script>
+<style>
+/* Hold the page: nothing shows until main.js says it is fully built (fonts, components, images). The script
+   above is render-blocking, so most browsers never paint the half-built page at all; this covers the rest. */
+html.preload body{visibility:hidden}
+/* the page's own entrance animations wait too, so they play once it appears rather than behind the curtain */
+html.preload body,html.preload body *,html.preload body *::before,html.preload body *::after{animation-play-state:paused!important}
+@view-transition{navigation:auto}
+@media (prefers-reduced-motion:no-preference){.topnav{view-transition-name:topnav}}
+/* A push: the new page slides in from the right over the old one, which drifts back. It uses
+   transforms only (no clip-path), so it stays on the GPU, and trails the Bauhaus colours as it comes. */
+:root{--pt-ease:cubic-bezier(.32,.72,0,1);--pt-time:.7s}
+::view-transition-old(root){animation:ptOut var(--pt-time) var(--pt-ease) both;z-index:1}
+::view-transition-new(root){animation:ptIn var(--pt-time) var(--pt-ease) both;z-index:2;mix-blend-mode:normal;
+  box-shadow:-3px 0 0 #121212,-19px 0 0 #F7C01D,-35px 0 0 #DB2A1B}
+@keyframes ptOut{to{transform:translateX(-22%)}}
+@keyframes ptIn{from{transform:translateX(100%)}}
+/* Fallback for browsers without View Transitions (set by core/page-transition.js) */
+@media (prefers-reduced-motion:no-preference){html.pt-in body{animation:ptFade .5s ease both}}
+@keyframes ptFade{from{opacity:0}}
+html.pt-out body{opacity:0;transition:opacity .28s ease}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+</style>
+<script>if(!("onpagereveal" in window))document.documentElement.classList.add("pt-in")</script>

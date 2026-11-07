@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- include: head.html -->
+<title>Lorem Ipsum</title>
+<meta name="description" content="Lorem Ipsum: lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lorem Ipsum">
+<meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit.">
+</head>
+<body>
+<!-- include: nav.html -->
+
+<header class="hero" id="top" data-component="compose">
+  <div class="wrap">
+    <div class="hero-text">
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Hello, I’m</p>
+      <h1><span class="row"><span>Lorem</span></span><span class="row"><span>Ipsum<span class="flare">.</span></span></span></h1>
+      <p class="role" data-bind="home.role">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <div class="cta">
+        <a class="btn" href="%BASE_URL%about.html">About me</a>
+        <a class="btn alt" href="%BASE_URL%contact.html">Say hello</a>
+      </div>
+    </div>
+    <svg class="art" viewBox="0 0 600 600" aria-hidden="true">
+      <g class="in" style="--i:0"><g class="amb a0"><circle class="s c-blue" style="--d:1;--r:90" cx="330" cy="240" r="210"/></g></g>
+      <g class="in" style="--i:1"><g class="amb a1"><rect class="s c-red" style="--d:-1.4;--r:-35" x="50" y="320" width="250" height="250"/></g></g>
+      <g class="in" style="--i:2"><g class="amb a2"><polygon class="s c-yellow" style="--d:1.8;--r:40" points="470,320 600,590 340,590"/></g></g>
+      <g class="in" style="--i:3"><g class="amb a3"><rect class="s c-ink" style="--d:.4;--r:0" x="0" y="306" width="600" height="12"/></g></g>
+      <g class="in" style="--i:4"><g class="amb a4"><circle class="s c-ink" style="--d:2.4;--r:0" cx="104" cy="120" r="28"/></g></g>
+      <g class="in" style="--i:5"><g class="amb a5"><circle class="s ring" style="--d:.8;--r:180" cx="330" cy="240" r="140"/></g></g>
+    </svg>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="cell"><b>Base</b><span class="v" data-bind="settings.base">Dolor Sit</span></div>
+    <div class="cell"><b>Local time</b><span class="v"><span data-component="clock" data-tz="UTC">--:--</span> UTC</span></div>
+    <div class="cell"><b>From</b><span class="v" data-bind="settings.from">Amet Consectetur</span></div>
+    <div class="cell"><b>Open to</b><span class="v" data-bind="settings.openTo">Lorem ipsum dolor sit amet, consectetur adipiscing</span></div>
+  </div>
+</div>
+
+<main id="main">
+  <section class="statement" id="intro">
+    <div class="wrap">
+      <p class="label">01 Profile</p>
+      <p class="big" data-component="statement" data-hot="ipsum,tempor,veniam" data-bind="home.statement" data-hot-from="home.hot">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </section>
+
+  <section class="explore" aria-label="Explore the site">
+    <div class="wrap">
+      <a class="ex ex-about" href="%BASE_URL%about.html">
+        <span class="num">02</span>
+        <svg viewBox="0 0 200 200" aria-hidden="true"><polygon points="100,10 190,190 10,190" fill="var(--red)"/><polygon points="100,10 190,190 100,190" fill="var(--ink)"/></svg>
+        <span class="ex-text"><b>About</b><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</i><span class="go" aria-hidden="true">→</span></span>
+      </a>
+      <a class="ex ex-frames" href="%BASE_URL%gallery.html">
+        <span class="num">03</span>
+        <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92" fill="var(--yellow)"/><circle cx="100" cy="100" r="52" fill="var(--ink)"/><circle cx="100" cy="100" r="20" fill="var(--paper)"/></svg>
+        <span class="ex-text"><b>Frames</b><i>Lorem ipsum in nine frames, from dolor sit amet to consectetur adipiscing.</i><span class="go" aria-hidden="true">→</span></span>
+      </a>
+      <a class="ex ex-contact" href="%BASE_URL%contact.html">
+        <span class="num">04</span>
+        <svg viewBox="0 0 200 200" aria-hidden="true"><rect x="14" y="14" width="172" height="172" fill="var(--paper)"/><circle cx="14" cy="186" r="110" fill="var(--blue)"/></svg>
+        <span class="ex-text"><b>Contact</b><i>Send a message. I reply within a couple of days.</i><span class="go" aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<!-- include: footer.html -->
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+/* ---------- 404 page ---------- */
+.nf{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+.nf-art{position:absolute;right:-4%;top:calc(var(--nav) + 2%);width:min(70vw,820px);height:auto;isolation:isolate}
+.nf-art > *{mix-blend-mode:multiply}
+.nf .wrap{position:relative;z-index:1;width:100%;padding-block:0 clamp(40px,7vw,90px)}
+.nf h1{font-family:var(--display);font-weight:800;font-size:clamp(110px,28vw,380px);line-height:.8;letter-spacing:-.04em}
+.nf h1 .flare{color:var(--red)}
+.nf p{font-size:clamp(19px,2vw,24px);font-weight:500;max-width:30ch;margin:22px 0 32px}
+.nf .btn{display:inline-block}

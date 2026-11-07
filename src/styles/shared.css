@@ -1,0 +1,22 @@
+/* ---------- Shared pieces: titles, buttons, reveal ---------- */
+main.page{padding-top:var(--nav)}
+.page-title{font-family:var(--display);font-weight:800;font-size:clamp(46px,9vw,144px);line-height:.88;letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance}
+.page-title::after{content:".";color:var(--red)}
+.eyebrow{margin:0 0 20px;font-family:var(--mono);font-size:var(--label);font-weight:700;letter-spacing:var(--track);text-transform:uppercase}
+.eyebrow .dot{display:inline-block;width:12px;height:12px;margin-right:10px;border-radius:50%;background:var(--red);vertical-align:-1px}
+
+.btn{display:inline-block;font:700 14px var(--body);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;background:var(--ink);color:var(--paper);border:var(--rule);padding:15px 26px;box-shadow:var(--off-s) var(--off-s) 0 var(--red);transition:transform .18s var(--ease),box-shadow .18s var(--ease),background .15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--red)}
+.btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--red)}
+.btn.alt{background:var(--paper);color:var(--ink);box-shadow:var(--off-s) var(--off-s) 0 var(--ink)}
+.btn.alt:hover{background:var(--yellow);box-shadow:8px 8px 0 var(--ink)}
+.btn:disabled{opacity:.55;cursor:progress}
+
+.rv{transition:transform .9s var(--ease),opacity .9s ease}
+.rv.pre{transform:translateY(40px);opacity:0}
+
+/* Live clocks stay invisible until they have a time, then fade in, so the page never shows "--:--". */
+@media (scripting:enabled){
+  [data-component="clock"]{opacity:0;transition:opacity .4s ease}
+  [data-component="clock"][data-ready]{opacity:1}
+}

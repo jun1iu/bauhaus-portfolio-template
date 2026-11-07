@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- include: head.html -->
+<title>Contact · Lorem Ipsum</title>
+<meta name="description" content="Send Lorem Ipsum a message.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact · Lorem Ipsum">
+<meta property="og:description" content="Send Lorem Ipsum a message.">
+</head>
+<body>
+<!-- include: nav.html -->
+
+<main id="main" class="page contact-page">
+  <svg class="contact-art" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="420" cy="180" r="180" fill="var(--yellow)"/><rect x="-40" y="380" width="260" height="260" fill="var(--blue)"/><polygon points="600,600 380,600 600,300" fill="var(--red)"/></svg>
+  <div class="wrap contact-grid">
+    <header class="contact-lede">
+      <h1 class="page-title">Say hello</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. I reply within a couple of days.</p>
+      <p class="contact-time">Local time is <span data-component="clock" data-tz="UTC">--:--</span> UTC.</p>
+    </header>
+    <form class="cform" data-component="contact-form" novalidate>
+      <div class="cform-row">
+        <div class="field">
+          <label for="cf-name">Your name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="100" aria-describedby="cf-name-err">
+          <span class="field-err" id="cf-name-err" data-error-for="name" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="cf-email">Your email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254" aria-describedby="cf-email-hint cf-email-err">
+          <span class="field-hint" id="cf-email-hint">So I can reply. It’s never shared.</span>
+          <span class="field-err" id="cf-email-err" data-error-for="email" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="cf-message">What would you like to say?</label>
+        <textarea id="cf-message" name="message" rows="4" required aria-describedby="cf-message-err"></textarea>
+        <div class="field-foot">
+          <span class="field-err" id="cf-message-err" data-error-for="message" aria-live="polite"></span>
+          <span class="field-count" data-form-count aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="hp" aria-hidden="true">
+        <label for="cf-website">Leave this empty</label>
+        <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <div class="cform-foot">
+        <button class="btn send" type="submit">Send message</button>
+        <p class="form-status" data-form-status role="status" aria-live="polite" hidden></p>
+      </div>
+    </form>
+  </div>
+</main>
+
+<!-- include: footer.html -->
+</body>
+</html>

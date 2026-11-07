@@ -1,0 +1,34 @@
+/* ---------- Contact ---------- */
+main.contact-page{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;display:flex}
+.contact-art{position:absolute;right:-6%;top:calc(var(--nav) + 2%);width:min(62vw,820px);height:auto;z-index:0;pointer-events:none}
+.contact-grid{position:relative;z-index:1;width:100%;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(28px,6vw,96px);align-items:center;padding-block:clamp(40px,7vh,88px)}
+.contact-lede h1{margin-bottom:clamp(18px,3vh,30px)}
+.contact-lede p{margin:0 0 16px;max-width:40ch;font-size:clamp(18px,1.7vw,22px);line-height:1.45;font-weight:500}
+.contact-lede .contact-time{font-family:var(--mono);font-size:var(--label);font-weight:500;letter-spacing:.04em;color:var(--ink)}
+.contact-lede .contact-time [data-component="clock"]{background:var(--ink);color:var(--paper);padding:2px 8px;font-weight:700;font-variant-numeric:tabular-nums}
+@media (max-width:900px){main.contact-page{flex-direction:column}.contact-grid{grid-template-columns:minmax(0,1fr);align-items:start;padding-top:clamp(24px,5vh,48px)}.contact-art{position:static;width:100%;height:150px;border-bottom:var(--rule)}}
+
+.cform{display:grid;gap:clamp(18px,3vh,28px);padding:clamp(22px,3.4vw,44px);background:var(--white);border:var(--rule);box-shadow:var(--off-l) var(--off-l) 0 var(--ink);animation:paneIn .8s .1s var(--ease) both}
+@keyframes paneIn{from{opacity:0;transform:translateY(24px)}}
+.cform-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(18px,3vh,28px) 24px}
+.field{display:grid;gap:6px;min-width:0;align-content:start}
+.field label{font-family:var(--mono);font-size:var(--label);font-weight:700;letter-spacing:var(--track);text-transform:uppercase}
+.field input,.field textarea{width:100%;min-width:0;font:inherit;font-size:19px;font-weight:500;line-height:1.4;color:var(--ink);background:var(--paper);border:var(--rule);border-radius:0;padding:12px 14px;transition:box-shadow .15s,transform .15s,background .15s}
+.field textarea{resize:vertical;min-height:120px}
+.field input:hover,.field textarea:hover{background:var(--yellow-tint)}
+.field input:focus,.field textarea:focus{outline:none;background:var(--white);box-shadow:var(--off-s) var(--off-s) 0 var(--blue);transform:translate(-2px,-2px)}
+.field [aria-invalid="true"]{border-color:var(--red);box-shadow:var(--off-s) var(--off-s) 0 var(--red)}
+.field-hint{font-size:14px;color:var(--muted)}
+.field-err{font-size:14px;font-weight:700;color:var(--red-text)}
+.field-err:empty{display:none}
+.field-foot{display:flex;justify-content:space-between;gap:12px}
+.field-count{margin-left:auto;font-family:var(--mono);font-size:var(--label);color:var(--muted);font-variant-numeric:tabular-nums}
+.field-count.warn{color:var(--red-text);font-weight:700}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cform-foot{display:flex;flex-wrap:wrap;align-items:center;gap:18px 22px}
+.btn.send{background:var(--red);color:var(--on-color);box-shadow:var(--off-s) var(--off-s) 0 var(--ink)}
+.btn.send:hover{box-shadow:8px 8px 0 var(--ink)}
+.btn.send:active{box-shadow:2px 2px 0 var(--ink)}
+.form-status{margin:0;font-size:16px;font-weight:600;flex:1 1 240px;padding:12px 16px;border:var(--rule-thin);background:var(--paper)}
+.form-status[data-kind="success"]{background:var(--blue);color:var(--on-color)}
+.form-status[data-kind="error"]{background:var(--red);color:var(--on-color)}

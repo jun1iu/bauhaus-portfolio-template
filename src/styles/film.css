@@ -1,0 +1,5 @@
+/* ---------- Film strip (scroll-linked) ---------- */
+.film{background:var(--ink);padding-block:18px;overflow:hidden;border-top:var(--rule)}
+.film-track{min-height:132px;display:flex;gap:12px;width:max-content;will-change:transform}
+.film-track img{object-fit:cover}
+.film-track canvas,.film-track img{width:200px;height:132px;flex:none;border:2px solid var(--paper)}

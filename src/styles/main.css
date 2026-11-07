@@ -1,0 +1,16 @@
+/* Global stylesheet. Each file covers one part of the site; add new ones here. */
+@import "./tokens.css";
+@import "./base.css";
+@import "./nav.css";
+@import "./shared.css";
+@import "./home.css";
+@import "./transition.css";
+@import "./gallery.css";
+@import "./film.css";
+@import "./about.css";
+@import "./contact.css";
+@import "./footer.css";
+@import "./lightbox.css";
+@import "./not-found.css";
+@import "./shapes.css";
+@import "./motion.css";

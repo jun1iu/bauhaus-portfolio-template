@@ -1,0 +1,30 @@
+/* ---------- Gallery ---------- */
+section.block > .wrap{padding-block:clamp(48px,8vw,112px)}
+.gal-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 32px;margin-bottom:clamp(28px,4vw,56px)}
+.gal-head p.note{font-family:var(--mono);font-size:var(--label);font-weight:700;letter-spacing:var(--track);text-transform:uppercase;color:var(--muted);margin:20px 0 0}
+.filters{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;min-height:44px;border:var(--rule-thin);border-radius:0;background:var(--white);padding:0 16px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .15s,color .15s,transform .15s var(--ease)}
+.chip:hover{background:var(--yellow);transform:translateY(-2px)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.chip .n{font-family:var(--mono);font-size:var(--label);opacity:.7;margin-left:8px}
+/* Rows are sized by core/justify.js; the flex-basis below only applies until it runs. */
+.frames-grid{display:flex;flex-wrap:wrap;gap:40px 18px;min-height:clamp(420px,70vh,900px)}
+/* The cards are built by script after the page shows; they fade up in order instead of popping in. */
+.frames-grid .frame:not(.pop){animation:cardIn .6s var(--ease) both}
+.frames-grid .frame:nth-child(3n+2):not(.pop){animation-delay:.07s}
+.frames-grid .frame:nth-child(3n):not(.pop){animation-delay:.14s}
+@keyframes cardIn{from{opacity:0;translate:0 24px}}
+.frame{flex:1 1 280px;min-width:0;margin:0;--sh:var(--red)}
+.frame:nth-child(3n+2){--sh:var(--yellow)}
+.frame:nth-child(3n){--sh:var(--blue)}
+.frame.pop{animation:cardPop .45s var(--ease) both}
+@keyframes cardPop{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+.shot{position:relative;display:block;width:100%;padding:0;border:var(--rule);border-radius:0;overflow:hidden;cursor:zoom-in;background:var(--white);box-shadow:0 0 0 var(--sh);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.shot:hover,.shot:focus-visible{transform:translate(-5px,-5px);box-shadow:var(--off-l) var(--off-l) 0 var(--sh)}
+.shot canvas,.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shot .view{position:absolute;left:0;bottom:0;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--yellow);border:var(--rule);border-width:3px 3px 0 0;padding:6px 12px;opacity:0;transform:translateY(100%);transition:opacity .2s,transform .25s var(--ease)}
+.shot:hover .view,.shot:focus-visible .view{opacity:1;transform:none}
+.frame figcaption{display:grid;gap:2px;padding-top:14px}
+.frame figcaption strong{font-weight:800;font-size:20px;letter-spacing:.01em;text-transform:uppercase;line-height:1.15}
+.frame figcaption span{display:block;color:var(--muted);font-size:15px;font-weight:500}
+.frame .pl{font-family:var(--mono);font-size:var(--label);font-weight:700;letter-spacing:var(--track);text-transform:uppercase;color:var(--red)!important}

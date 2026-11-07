@@ -1,0 +1,63 @@
+/* ---------- Ambient motion: every decorative shape keeps moving ----------
+   --amp sets how far a shape travels, in that graphic's own units, so big
+   graphics move further than small ones. Reduced-motion users get none (motion.css). */
+@keyframes sFloat{from{transform:translateY(calc(var(--amp,8px) * .6))}to{transform:translateY(calc(var(--amp,8px) * -1))}}
+@keyframes sSlide{from{transform:translateX(calc(var(--amp,8px) * -1))}to{transform:translateX(var(--amp,8px))}}
+@keyframes sRock{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+@keyframes sBreathe{from{transform:scale(1)}to{transform:scale(1.08)}}
+@keyframes sPulse{from{transform:scale(1)}to{transform:scale(.78)}}
+@keyframes sGrow{from{transform:scaleY(.86)}to{transform:scaleY(1)}}
+@keyframes sSpin{to{transform:rotate(360deg)}}
+@keyframes sFlip{0%,70%{transform:rotate(0)}100%{transform:rotate(90deg)}}
+@keyframes sDot{from{transform:scale(1);opacity:1}to{transform:scale(.55);opacity:.5}}
+/* individual transform properties, so they never fight a hover transform on the same element */
+@keyframes gDrift{from{translate:0 calc(var(--amp,8px) * .6)}to{translate:0 calc(var(--amp,8px) * -1)}}
+@keyframes gTilt{from{rotate:-8deg}to{rotate:8deg}}
+
+.ex svg *,.places svg *,.contact-art *,.nf-art *,.foot-mark *,.mark *{transform-box:fill-box;transform-origin:center;animation-duration:var(--d,5s);animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate}
+
+/* home tiles: each graphic drifts or tilts as a whole, with its parts moving inside */
+.ex svg{overflow:visible;--amp:12px;animation:gDrift 7s ease-in-out infinite alternate}
+.ex-about svg{animation:gTilt 6s ease-in-out infinite alternate}
+.ex-frames svg circle:nth-child(2){animation-name:sBreathe;--d:3.2s}
+.ex-frames svg circle:nth-child(3){animation-name:sPulse;--d:2.4s}
+.ex-contact svg rect{animation-name:sSpin;--d:36s;animation-direction:normal;animation-timing-function:linear}
+.ex-contact svg circle{animation-name:sFloat;--amp:10px;--d:4s}
+
+/* about: the two places */
+.places svg{--amp:6px}
+.places figure:nth-child(1) svg circle{animation-name:sFloat;--d:5s}
+.places figure:nth-child(1) svg polygon:nth-of-type(1){animation-name:sRock;--d:6s}
+.places figure:nth-child(1) svg polygon:nth-of-type(2){animation-name:sSlide;--d:7s}
+.places figure:nth-child(2) svg circle{animation-name:sPulse;--d:3s}
+.places figure:nth-child(2) svg rect:nth-child(n+3):nth-child(-n+10){transform-origin:50% 100%;animation-name:sGrow;--d:2.4s}
+.places figure:nth-child(2) svg rect:nth-child(3){animation-delay:-.3s}
+.places figure:nth-child(2) svg rect:nth-child(4){animation-delay:-1.1s}
+.places figure:nth-child(2) svg rect:nth-child(5){animation-delay:-.6s}
+.places figure:nth-child(2) svg rect:nth-child(6){animation-delay:-1.8s}
+.places figure:nth-child(2) svg rect:nth-child(7){animation-delay:-.9s}
+.places figure:nth-child(2) svg rect:nth-child(8){animation-delay:-2.1s}
+.places figure:nth-child(2) svg rect:nth-child(9){animation-delay:-.2s}
+.places figure:nth-child(2) svg rect:nth-child(10){animation-delay:-1.4s}
+
+/* contact and 404 */
+.contact-art,.nf-art{--amp:20px}
+.contact-art circle,.nf-art circle{animation-name:sBreathe;--d:8s}
+.contact-art rect,.nf-art rect{animation-name:sRock;--d:7s}
+.contact-art polygon,.nf-art polygon{animation-name:sFloat;--d:6s}
+
+/* nav and footer marks: small, so they move a little */
+.mark{--amp:1.5px}
+.mark circle{animation-name:sFloat;--d:3.4s}
+.mark rect{animation-name:sRock;--d:4.2s}
+.mark path{animation-name:sSlide;--d:3.8s}
+.foot-mark{--amp:5px}
+.foot-mark circle{animation-name:sFloat;--d:3.2s}
+.foot-mark rect{animation-name:sRock;--d:4s}
+.foot-mark path{animation-name:sFloat;--d:3.6s;animation-delay:-1.2s}
+
+/* section-heading shapes and dots */
+.sec::before{animation:sFlip 4.5s ease-in-out infinite}
+.log-section .sec::before{animation:sPulse 2.6s ease-in-out infinite alternate}
+.stack-section .sec::before{animation:sRock 3.4s ease-in-out infinite alternate}
+.eyebrow .dot,.spec .dot{animation:sDot 1.6s ease-in-out infinite alternate}

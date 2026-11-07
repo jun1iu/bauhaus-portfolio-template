@@ -1,0 +1,25 @@
+{
+  "name": "bauhaus-portfolio-template",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "server": "node --env-file-if-exists=.env server/index.js",
+    "server:watch": "node --watch --env-file-if-exists=.env server/index.js",
+    "dev:all": "node scripts/dev-all.js",
+    "admin:reset": "node --env-file-if-exists=.env server/reset-password.js"
+  },
+  "devDependencies": {
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.6",
+    "hono": "^4.13.17"
+  }
+}
