@@ -1,5 +1,5 @@
 // Resolves when the page is fully built: components mounted, images decoded and fonts loaded.
-// main.js waits on this before revealing the page (see "Hold the page" in partials/head.html).
+// main.js waits on this before recording the page-ready performance mark.
 
 /** Images that load immediately (lazy ones are left to load when scrolled near). */
 const eager = (root) => Array.from(root.images).filter((img) => img.loading !== 'lazy');

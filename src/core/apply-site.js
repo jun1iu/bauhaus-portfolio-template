@@ -42,7 +42,12 @@ export function applySite(data, root = document) {
   root.querySelectorAll('[data-social]').forEach((a) => {
     const url = safeHref(social[a.dataset.social]);
     const item = a.closest('li') || a;
-    if (url) { a.href = url; a.target = '_blank'; item.hidden = false; } else item.hidden = true;
+    item.hidden = !url;
+    if (url) {
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
   });
   const list = root.querySelector('.social');
   if (list) list.hidden = ![...list.children].some((li) => !li.hidden);

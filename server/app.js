@@ -68,7 +68,7 @@ export function createApp({ db, config, limits = {} }) {
   const admin = new Hono();
 
   admin.use('*', async (c, next) => {
-    if (!['GET', 'HEAD'].includes(c.req.method) && !isSameOrigin(c)) return c.json({ error: 'Not allowed.' }, 403);
+    if (!['GET', 'HEAD'].includes(c.req.method) && !isSameOrigin(c, config)) return c.json({ error: 'Not allowed.' }, 403);
     c.header('Cache-Control', 'no-store');
     await next();
   });

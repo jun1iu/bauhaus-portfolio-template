@@ -1,6 +1,6 @@
 // Entry point for every page. Loads the global styles, starts scroll-reveal
 // for elements marked .rv, and mounts whatever components the page declares.
-// The page stays hidden until it is fully built, then appears all at once.
+// Static HTML can paint while content and interactive components load.
 import './styles/main.css';
 import { registry } from './components/index.js';
 import { mountComponents } from './core/components.js';
@@ -19,6 +19,4 @@ reveal(qsa('.rv'));
 pageTransitions();
 await whenReady(mountComponents(registry));
 
-// Show the page and let its own entrance animations start (they are held while "preload" is set).
-document.documentElement.classList.remove('preload');
 performance.mark('page-ready');

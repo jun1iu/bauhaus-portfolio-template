@@ -7,6 +7,11 @@ const click = (o = {}) => ({ defaultPrevented: false, button: 0, ...o });
 const here = new URL('https://x.test/');
 const link = (href, extra = {}) => ({ href, hasAttribute: () => false, target: '', ...extra });
 
+it('lets static content paint before the startup module finishes', () => {
+  const head = readFileSync('partials/head.html', 'utf8');
+  expect(head).not.toMatch(/blocking=["']render|html\.preload/);
+});
+
 describe('page transitions', () => {
   it('animates plain internal links', () => expect(isInternalNav(link('https://x.test/about.html'), click(), here)).toBe(true));
   it('ignores same-page hashes', () => expect(isInternalNav(link('https://x.test/#top'), click(), here)).toBe(false));

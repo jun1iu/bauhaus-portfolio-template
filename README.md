@@ -125,7 +125,7 @@ Then:
 | `DATA_DIR` | Where the database and photos are kept (default `data`) |
 | `ADMIN_PASSWORD` | The admin password, used on first run only |
 | `COOKIE_SECURE` | Set to `1` so the sign-in cookie is only sent over HTTPS (also on by default when `NODE_ENV=production`) |
-| `TRUST_PROXY` | Set to `1` only if a proxy you control sits in front, so limits count real visitors |
+| `TRUST_PROXY` | Set to `1` only behind a proxy you control. Preserve the public `Host` and have the proxy set `X-Forwarded-Proto` to the public scheme and sanitize `X-Forwarded-For`. |
 | `CORS_ORIGINS` | Other websites allowed to use the server's API (see Option B) |
 | `MAX_MESSAGES` | Stop accepting new messages after this many (default `5000`) |
 
@@ -195,7 +195,7 @@ You don't need any of this to use the template. It's here for when you want to c
   Each name maps to a file in `src/components/` that exports `mount(element)`. To add one: create `src/components/my-thing.js` with `export function mount(el) { … }`, register it in `src/components/index.js`, then use `<div data-component="my-thing"></div>`. Add `data-hydrate="visible"` to load a component only when it scrolls near the screen.
 - **Useful helpers** in `src/core/`: `onScroll()` and `onResize()` (one shared loop for scroll effects), `createStore()` (shared state), `reveal()` (fade in on scroll; add `class="rv"` in HTML), and small DOM and math helpers.
 - **Page transitions:** in browsers that support them (Chrome, Edge, Safari 18.2+), moving between pages slides the new page in; others get a fade. Reduced-motion visitors get none. The CSS is in the `<style>` block of `partials/head.html`.
-- **Holding the page until it's ready:** nothing is shown until components are mounted, images decoded and fonts loaded (`src/core/ready.js`, awaited in `src/main.js`), so visitors never see a half-built page. If something goes wrong the page appears after 8 seconds anyway.
+- **Page readiness:** static HTML can paint immediately. The `page-ready` performance mark records when components, eager images and fonts have finished loading.
 - **Gallery by hand:** frames live in `src/data/frames.js`. To use a real photo without the admin, put it in `public/photos/` and add `src` and `alt` to the frame. `npm test` checks every frame is complete.
 
 ### How the website gets its content

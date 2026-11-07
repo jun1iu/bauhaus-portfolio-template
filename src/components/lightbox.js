@@ -9,7 +9,10 @@ import { qs, asset, escapeHtml } from '../core/index.js';
 export function mount(lb) {
   const canvas = qs('canvas', lb), img = qs('img', lb);
   const cap = qs('[data-lb-caption]', lb), count = qs('[data-lb-count]', lb), closeBtn = qs('[data-lb-close]', lb);
+  const prevBtn = qs('[data-lb-prev]', lb), nextBtn = qs('[data-lb-next]', lb);
   let opener = null;
+  let background = [];
+  let previousOverflow = '';
 
   const close = () => ui.set({ viewing: null });
   const step = (d) => {
@@ -35,25 +38,41 @@ export function mount(lb) {
   ui.subscribe((s, prev) => {
     if (s.viewing === prev.viewing) return;
     if (s.viewing === null) {
-      lb.hidden = true; document.body.style.overflow = '';
+      lb.hidden = true;
+      document.body.style.overflow = previousOverflow;
+      background.forEach((el) => { el.inert = false; });
+      background = [];
       if (opener) opener.focus();
       return;
     }
     if (prev.viewing === null) {
       opener = document.activeElement;
-      lb.hidden = false; document.body.style.overflow = 'hidden';
-      render(); closeBtn.focus();
+      previousOverflow = document.body.style.overflow;
+      lb.hidden = false;
+      document.body.style.overflow = 'hidden';
+      render();
+      closeBtn.focus();
+      background = [...document.body.children].filter((el) => el !== lb && !el.inert);
+      background.forEach((el) => { el.inert = true; });
       return;
     }
     render();
   });
 
   closeBtn.addEventListener('click', close);
-  qs('[data-lb-prev]', lb).addEventListener('click', () => step(-1));
-  qs('[data-lb-next]', lb).addEventListener('click', () => step(1));
+  prevBtn.addEventListener('click', () => step(-1));
+  nextBtn.addEventListener('click', () => step(1));
   lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
   document.addEventListener('keydown', (e) => {
     if (lb.hidden) return;
+    if (e.key === 'Tab') {
+      const active = document.activeElement;
+      const edge = e.shiftKey ? closeBtn : nextBtn;
+      if (active === edge || !lb.contains(active)) {
+        e.preventDefault();
+        (e.shiftKey ? nextBtn : closeBtn).focus();
+      }
+    }
     if (e.key === 'Escape') close();
     if (e.key === 'ArrowRight') step(1);
     if (e.key === 'ArrowLeft') step(-1);

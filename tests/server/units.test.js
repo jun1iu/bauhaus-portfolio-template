@@ -3,6 +3,26 @@ import { sniffImage } from '../../server/uploads.js';
 import { validateContent, validateFrame, validateMessage } from '../../server/validate.js';
 import { hashPassword, verifyPassword, createLimiter } from '../../server/auth.js';
 import { PNG } from './helpers.js';
+import { isSameOrigin } from '../../server/security.js';
+
+describe('same-origin checks', () => {
+  const check = (origin, proto, trustProxy = false) => isSameOrigin({
+    req: {
+      url: 'http://example.com/api/admin/login',
+      header: (name) => ({ origin, 'x-forwarded-proto': proto })[name],
+    },
+  }, { trustProxy });
+
+  it('compares the scheme and ignores forwarded protocol by default', () => {
+    expect(check('http://example.com')).toBe(true);
+    expect(check('https://example.com', 'https')).toBe(false);
+  });
+
+  it('uses the public scheme when the proxy is trusted', () => {
+    expect(check('https://example.com', 'https', true)).toBe(true);
+    expect(check('http://example.com', 'https', true)).toBe(false);
+  });
+});
 
 describe('image sniffing', () => {
   it('recognises real images by their first bytes', () => {
