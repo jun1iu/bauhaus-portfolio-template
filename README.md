@@ -198,3 +198,7 @@ The career roadmap chart on the About page and the page layouts are part of the 
 `.github/workflows/deploy.yml` runs the tests on every push and pull request. When `main` changes, it also builds the site and publishes it.
 
 One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions.** GitHub Pages on a private repository needs a paid GitHub plan.
+
+## License
+
+[MIT](LICENSE). You can use, change and share this template, including for your own site or for clients, as long as the license notice stays with the code.
