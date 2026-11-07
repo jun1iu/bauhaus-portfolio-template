@@ -1,156 +1,110 @@
 # Bauhaus portfolio template
 
-A minimal, Bauhaus-inspired portfolio site with a built-in back-end and admin. It's a complete starting point for a personal site: a primary-colour geometric hero, a filterable photo gallery with a full-screen viewer, About and Contact pages, and an admin dashboard for managing everything without touching code.
+A minimal, Bauhaus-inspired portfolio website with its own **admin panel**. Use it as the starting point for your personal site: you get a bold geometric home page, a photo gallery, About and Contact pages, and a CMS-style dashboard where you edit your text, upload photos and read messages, without touching code.
 
-**All the content is placeholder Lorem ipsum text.** Replace it from the admin (see [Back-end and admin](#back-end-and-admin)) or by editing the HTML. The palette and fonts live in `src/styles/tokens.css`.
+**Everything on the site is placeholder "Lorem ipsum" text.** Replace it with your own in the admin, in about ten minutes (see [Make it yours](#make-it-yours)).
 
-## What's in the box
+**On this page:** [Quick start](#quick-start) · [Make it yours](#make-it-yours) · [Using the admin](#using-the-admin) · [Putting it online](#putting-it-online) · [Commands](#commands) · [Project layout](#project-layout) · [How it works](#how-it-works-for-developers) · [Troubleshooting](#troubleshooting) · [License](#license)
 
-- **Front-end:** four pages (Home, About, Frames, Contact) plus a 404, with scroll-driven and ambient animation, a page transition, and full keyboard and reduced-motion support.
-- **Gallery:** nine generated Bauhaus illustrations as placeholders; upload real photos from the admin.
-- **Back-end:** a small [Hono](https://hono.dev) server with Node's built-in SQLite, a cookie-session login, spam-trapped contact form, and image uploads that check real file contents.
-- **Admin:** a CMS-style dashboard for messages, the gallery, page content and settings.
-- **Tests:** about 130 tests covering the logic and the server.
+## What you get
 
-Built with [Vite](https://vite.dev) and plain JavaScript modules, with no framework. Pages are ordinary HTML, and JavaScript is added to them in small components.
-
-## Getting started
-
-You need [Node.js](https://nodejs.org) 22.13 or newer (the back-end uses the SQLite built into Node).
-
-```bash
-npm install
-```
-
-```bash
-npm run dev
-```
-
-That starts a local server (usually http://localhost:5173) that reloads as you edit. Other commands:
-
-| Command | What it does |
+| Piece | What it is |
 | --- | --- |
-| `npm run dev` | Local dev server with live reload |
-| `npm test` | Runs the tests in `tests/` |
-| `npm run build` | Builds the finished site into `dist/` |
-| `npm run preview` | Serves `dist/` locally to check the build |
+| **The website** | Home, About, Frames (gallery), Contact and a 404 page. Animated, fast, works with a keyboard, and respects "reduce motion". |
+| **The admin** | A dashboard for messages, gallery photos, page text and settings, with a sidebar that becomes a slide-out menu on phones. |
+| **The server** | A small program that stores your content and messages and serves the site and admin. No database to install. |
 
-## How it's organised
+The site is plain HTML, CSS and JavaScript built with [Vite](https://vite.dev), with no front-end framework. The server uses [Hono](https://hono.dev) and the SQLite database that is built into Node.
 
-```
-index.html, gallery.html, about.html, contact.html, 404.html
-                         Pages. Any .html file in the root becomes a page.
-partials/                HTML shared by every page (head, nav, footer)
-public/                  Files copied as-is (put photos in public/photos/)
-src/
-  main.js                Entry point loaded by every page
-  state.js               Shared state (gallery filter, open lightbox frame)
-  components/            One file per interactive piece, listed in components/index.js
-  core/                  Shared building blocks: scroll loop, store, reveal, helpers
-  data/                  Content: gallery frames and their Bauhaus artwork
-  scenes/                Draws the frame artwork onto canvases
-  styles/                CSS, one file per section, all imported by main.css
-tests/                   Unit tests (Vitest)
-```
+## Quick start
 
-### Components
-
-Interactive parts are declared in HTML with `data-component`:
-
-```html
-<section data-component="gallery">…</section>
-<span data-component="clock" data-tz="UTC"></span>
-```
-
-Each name maps to a file in `src/components/` that exports `mount(element)`. A page only downloads the components it uses. Add `data-hydrate="visible"` to load one only when it scrolls near the screen. If you do, give the element a fixed size in CSS so the page doesn't jump when it loads.
-
-To add a component:
-1. Create `src/components/my-thing.js`:
-   ```js
-   export function mount(el) {
-     el.addEventListener('click', () => el.classList.toggle('on'));
-   }
-   ```
-2. Register it in `src/components/index.js`: `'my-thing': () => import('./my-thing.js'),`
-3. Use it in any page: `<div data-component="my-thing"></div>`
-
-Useful building blocks in `src/core/`:
-- **`onScroll(fn)` / `onResize(fn)`** (`scroll.js`): one shared, frame-synced loop for scroll effects. Use these instead of adding your own `scroll` listeners.
-- **`createStore()`** (`store.js`): shared state that components subscribe to. `src/state.js` holds the site-wide store. The gallery and lightbox talk to each other through it.
-- **`reveal(el)`** (`reveal.js`): fade an element in as it scrolls into view. In HTML, just add `class="rv"`.
-- **`h()`, `qs()`, `qsa()`, `asset()`, `escapeHtml()`** (`dom.js`), **`clamp()`, `rng()`…** (`math.js`), **`REDUCED`** (`env.js`)
-
-### Page transitions
-
-Moving between pages is animated. Browsers with cross-document View Transitions (Chrome, Edge, Safari 18.2+) use the CSS in the `<style>` block of `partials/head.html`: the new page pushes in from the right, trailing the three primary colours. Others get a fade from `src/core/page-transition.js`. Reduced-motion users get no animation. To add a page to the menu, add a link with `data-page="name"` in `partials/nav.html`.
-
-### Holding the page until it's ready
-
-Nothing is shown until the page is fully built: components mounted, images decoded and fonts loaded (`src/core/ready.js`, awaited in `src/main.js`). The main script is render-blocking, so most browsers never paint a half-built page, and `html.preload` hides the body as a fallback. The page's entrance animations are paused until it appears. If something goes wrong the page is shown after 8 seconds anyway.
-
-### Adding a page
-
-Create `about.html` (for example) in the project root. Start it like `404.html`: include the partials with `<!-- include: head.html -->`, `<!-- include: nav.html -->` and `<!-- include: footer.html -->`. It's built automatically. In page and partial HTML, write `%BASE_URL%` for links to the homepage so they work on GitHub Pages.
-
-### Adding real photos
-
-1. Put images in `public/photos/`. Resize them to about 2000px on the long edge first.
-2. In `src/data/frames.js`, add `src` and `alt` to the frame you're replacing:
-   ```js
-   { title: 'Lorem Ipsum', ..., ratio: [4, 5], src: 'photos/lorem-ipsum.jpg', alt: 'Lorem ipsum dolor sit amet' }
-   ```
-3. Set `ratio` to the photo's shape, e.g. `[3, 2]` for landscape or `[4, 5]` for portrait.
-
-If a file is missing, the illustration is shown instead. `npm test` checks that every frame is complete and that photos have alt text.
-
-### Contact form
-
-The Contact section has a form instead of a visible email address. With the back-end running, messages arrive in the admin Inbox. Without it, messages go to a form service that forwards them to your inbox, so your address never appears on the site.
-
-To connect it (one time):
-1. Go to [web3forms.com](https://web3forms.com), enter your email, and copy the access key they email you.
-2. Paste it into `src/config.js`: `key: 'your-access-key'`.
-3. Commit and push. Once the site is published, send yourself a test message.
-
-Until a key is added, the form shows "isn't connected yet" instead of failing silently. The key is safe to publish: it can only send messages to you and doesn't reveal your address. To use [Formspree](https://formspree.io) instead, set `provider: 'formspree'` and use your form ID as the key.
-
-The form checks fields in the browser, has a hidden honeypot field to catch spam bots, keeps the message if sending fails, and announces errors and success to screen readers.
-
-### Colours and fonts
-
-Edit the variables in `src/styles/tokens.css`. The site uses a single dark theme.
-
-## Back-end and admin
-
-A small server and an admin website, so you can manage the site without touching code. From the admin you can:
-
-The admin is laid out like a CMS, with a sidebar grouped into Content, Messages and Site (it becomes a slide-out menu on phones):
-
-- **Dashboard:** unread messages, gallery counts, when each page was last saved, your recent messages, a feed of recent activity (edits, uploads, new messages) and quick actions.
-- **Home page / About page:** edit the Home tagline and intro, and everything on About (intro, details, jobs, skills, education).
-- **Gallery:** upload, caption, reorder and delete photos on the Frames page.
-- **Inbox:** read the messages sent through your Contact page, mark them read, reply by email, delete them.
-- **Settings:** your location, "open to" line, availability, and social links (a link left blank hides its icon).
-- **Account:** change your password.
-
-The server uses [Hono](https://hono.dev) and Node's built-in SQLite (Node 22.13 or newer), so there is no database to install. Everything it stores lives in the `data/` folder (`site.db` and the `uploads/` photos), which git ignores.
-
-The public site works without the server: if it can't reach one, every page keeps the content already in it, and the Contact form falls back to the form service in `src/config.js`.
-
-### Running it
+**You need** [Node.js](https://nodejs.org) version **22.13 or newer**. Check with `node -v`.
 
 ```bash
 npm install
 npm run dev:all
 ```
 
-That starts the site at http://localhost:5173 and the server at http://localhost:3001. Open **http://localhost:3001/admin/** to sign in. On the first run the server invents an admin password and prints it **once** in the terminal, so copy it then (you can change it under Account). To choose it yourself, copy `.env.example` to `.env` and set `ADMIN_PASSWORD` before the first run. Forgot it? `npm run admin:reset` sets a new one.
+That starts two things:
 
-To run only the server: `npm run server`.
+| Address | What it is |
+| --- | --- |
+| http://localhost:5173 | Your website. It reloads as you edit files. |
+| http://localhost:3001/admin/ | The admin panel. |
 
-### Putting it online
+**First sign-in:** the first time the server starts it makes up an admin password and prints it **once** in your terminal. Copy it right away, sign in at the admin address, and change it under **Account**. (You can pick your own beforehand: copy `.env.example` to `.env` and fill in `ADMIN_PASSWORD`.)
 
-Run one server that does everything:
+Want only the website, with no admin? `npm run dev` is enough. The site then shows its built-in content.
+
+## Make it yours
+
+Most things can be changed from the admin. A few live in the files. Here is where everything is.
+
+### 1. Your words and photos: use the admin
+
+Open http://localhost:3001/admin/ and work down the sidebar:
+
+- **Home page:** the tagline under your name, the big intro paragraph, and which words in it turn red.
+- **About page:** your intro, the details list, jobs, skills and education.
+- **Gallery:** upload your photos. The nine coloured illustrations are placeholders; delete them or leave them as decoration.
+- **Settings:** where you're based, what you're open to, your availability, and your social links (a link left empty hides its icon).
+
+Changes appear on the site the next time a page loads, so refresh to see them.
+
+### 2. Your name and site title: edit these files
+
+Your name appears in a few places that the admin doesn't control. Search for `Lorem Ipsum` in these files and replace it:
+
+| File | What it changes |
+| --- | --- |
+| `index.html` | The big name on the home page (the two lines in the `<h1>`) and the page title and description |
+| `about.html`, `gallery.html`, `contact.html`, `404.html` | Each page's browser-tab title and search/share description |
+| `partials/nav.html` | The name beside the logo in the top bar |
+| `partials/footer.html` | The copyright name in the footer |
+| `partials/head.html` | The site name used when your link is shared |
+
+Page headings and button wording (such as "A little about me" or "Say hello") are also in these HTML files, so edit them there. In `about.html` you can also edit the **career roadmap chart**, which is not in the admin.
+
+### 3. Time zone
+
+The clock on the home and Contact pages shows UTC. In `index.html` and `contact.html`, change `data-tz="UTC"` to your own, for example `data-tz="America/New_York"`, and change the label after it. [List of time zone names](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+### 4. Colours and fonts
+
+Edit `src/styles/tokens.css`. The palette is paper, ink and the three Bauhaus primaries (`--red`, `--yellow`, `--blue`), and the fonts are Jost and JetBrains Mono.
+
+### 5. The logo
+
+The three-shape logo in the top bar and footer is plain markup in `partials/nav.html` and `partials/footer.html`. Replace it with your own.
+
+### 6. The Contact form
+
+With the server running, messages go to your admin **Inbox**. If you publish only the static site (no server), messages go to a form service instead. See [Option C](#option-c-the-site-only-no-server).
+
+## Using the admin
+
+The sidebar starts with the **Dashboard**, then has three groups.
+
+- **Dashboard** is the start page: unread messages, gallery counts, when each page was last saved, recent messages, a feed of recent activity, and quick actions.
+
+**Content**
+- **Home page** and **About page** are forms for your text.
+- **Gallery** lets you upload, caption, reorder and delete photos. Photos are checked and stored safely, up to 8 MB each. Resize large photos to about 2000 pixels on the long side first.
+
+**Messages**
+- **Inbox** shows messages sent through your Contact page. Open one to mark it read, reply by email, or delete it.
+
+**Site**
+- **Settings** holds your location, availability and social links.
+- **Account** changes your password.
+
+## Putting it online
+
+The easiest way is to run **one server that does everything**: it serves the website, the admin and your uploaded photos from one address.
+
+### Option A: one server (recommended)
+
+On a computer or hosting service that can run Node.js:
 
 ```bash
 npm install
@@ -158,46 +112,126 @@ npm run build
 NODE_ENV=production npm run server
 ```
 
-It serves the built site, the admin at `/admin/`, the API and your uploaded photos from one address. Put it behind HTTPS (for example Caddy or nginx), keep it running with something like pm2 or systemd, and set these in `.env`:
+Then:
+
+1. **Put it behind HTTPS.** A tool such as [Caddy](https://caddyserver.com) or nginx can do this.
+2. **Keep it running.** Use something like pm2 or systemd so it restarts if it stops.
+3. **Set your options** in a `.env` file (copy `.env.example`):
 
 | Setting | What it does |
 | --- | --- |
-| `HOST=0.0.0.0` | Accept connections from outside this computer (the default is `127.0.0.1`, private) |
-| `COOKIE_SECURE=1` | Sign-in cookie only over HTTPS (also turned on by `NODE_ENV=production`) |
-| `TRUST_PROXY=1` | Use the visitor address your proxy sends, so rate limits count real visitors. Set only behind a proxy you control |
-| `DATA_DIR`, `PORT` | Where data is kept, and the port |
-| `CORS_ORIGINS` | Other sites allowed to use the API (see below) |
+| `PORT` | The port to listen on (default `3001`) |
+| `HOST` | `127.0.0.1` keeps it private to this computer (default). Use `0.0.0.0` to accept outside connections. |
+| `DATA_DIR` | Where the database and photos are kept (default `data`) |
+| `ADMIN_PASSWORD` | The admin password, used on first run only |
+| `COOKIE_SECURE` | Set to `1` so the sign-in cookie is only sent over HTTPS (also on by default when `NODE_ENV=production`) |
+| `TRUST_PROXY` | Set to `1` only if a proxy you control sits in front, so limits count real visitors |
+| `CORS_ORIGINS` | Other websites allowed to use the server's API (see Option B) |
+| `MAX_MESSAGES` | Stop accepting new messages after this many (default `5000`) |
 
 **Back up the `data/` folder.** It holds all your content, messages and photos.
 
-**Keeping the site on GitHub Pages:** the server can live elsewhere. Set `CORS_ORIGINS=https://YOUR-NAME.github.io` on the server, and add a repository variable named `API_BASE` (Settings > Secrets and variables > Actions > Variables) with the server's address, for example `https://admin.example.com`. The next deploy will read content from it.
+### Option B: site on GitHub Pages, server elsewhere
+
+Keep the public site on free GitHub Pages and run the server somewhere else. The site then reads its content from the server.
+
+1. On the server, set `CORS_ORIGINS=https://YOUR-NAME.github.io`.
+2. In your GitHub repository go to **Settings → Secrets and variables → Actions → Variables** and add a variable named `API_BASE` with your server's address, for example `https://admin.example.com`.
+3. Turn on Pages: **Settings → Pages → Source: GitHub Actions**. The included workflow (`.github/workflows/deploy.yml`) tests and publishes the site whenever you push to `main`.
+
+### Option C: the site only (no server)
+
+Publish the built site to GitHub Pages (step 3 above) without a server. The pages show the content written in the HTML files, and you edit them by hand. For the Contact form, create a free key at [web3forms.com](https://web3forms.com), paste it into `src/config.js` (`key: 'your-access-key'`), and messages are emailed to you. Until you add a key, the form politely says it isn't connected. (To use [Formspree](https://formspree.io) instead, set `provider: 'formspree'` and use your form ID as the key.)
+
+## Commands
+
+| Command | What it does |
+| --- | --- |
+| `npm run dev:all` | Starts the website and the server together for development |
+| `npm run dev` | Starts only the website (port 5173) |
+| `npm run server` | Starts only the server and admin (port 3001) |
+| `npm run server:watch` | The same, restarting when server files change |
+| `npm run build` | Builds the finished website into `dist/` |
+| `npm run preview` | Serves `dist/` locally to check the build |
+| `npm test` | Runs all the tests |
+| `npm run test:watch` | Runs the tests again whenever a file changes |
+| `npm run admin:reset` | Sets a new admin password and prints it (use it if you forget yours) |
+
+## Project layout
+
+```
+index.html, about.html, gallery.html, contact.html, 404.html
+                  The pages. Any .html file in this folder becomes a page.
+partials/         HTML shared by every page: head, top bar (nav) and footer
+public/           Files copied as-is (robots.txt, and photos if you add them by hand)
+src/              The website's code
+  main.js           Starts every page
+  components/       One file per interactive piece (gallery, clock, form, ...)
+  core/             Shared building blocks (scrolling, content loading, helpers)
+  data/             The gallery frames and their Bauhaus artwork
+  scenes/           Draws the artwork onto canvases
+  styles/           CSS, one file per area; tokens.css holds colours and fonts
+server/           The back-end: index.js starts it, app.js has the routes
+admin/            The admin website (plain HTML, CSS and JavaScript, no build step)
+data/             Your database and uploaded photos (created on first run; not in git)
+tests/            Automated tests for the site and the server
+build/, scripts/  Small helpers for the build and for dev:all
+```
+
+## How it works (for developers)
+
+You don't need any of this to use the template. It's here for when you want to change how things behave.
+
+### The website
+
+- **Pages are plain HTML** that start with `<!-- include: head.html -->`, `<!-- include: nav.html -->` and `<!-- include: footer.html -->` to share the common parts. In page and partial HTML, write `%BASE_URL%` for links to the home page so they work when the site is hosted in a sub-folder (as on GitHub Pages).
+- **Adding a page:** copy `404.html`, rename it, and it's built automatically. To list it in the top bar, add a link with `data-page="your-page"` in `partials/nav.html`.
+- **Components** are small scripts attached to elements with `data-component`:
+
+  ```html
+  <span data-component="clock" data-tz="UTC"></span>
+  ```
+
+  Each name maps to a file in `src/components/` that exports `mount(element)`. To add one: create `src/components/my-thing.js` with `export function mount(el) { … }`, register it in `src/components/index.js`, then use `<div data-component="my-thing"></div>`. Add `data-hydrate="visible"` to load a component only when it scrolls near the screen.
+- **Useful helpers** in `src/core/`: `onScroll()` and `onResize()` (one shared loop for scroll effects), `createStore()` (shared state), `reveal()` (fade in on scroll; add `class="rv"` in HTML), and small DOM and math helpers.
+- **Page transitions:** in browsers that support them (Chrome, Edge, Safari 18.2+), moving between pages slides the new page in; others get a fade. Reduced-motion visitors get none. The CSS is in the `<style>` block of `partials/head.html`.
+- **Holding the page until it's ready:** nothing is shown until components are mounted, images decoded and fonts loaded (`src/core/ready.js`, awaited in `src/main.js`), so visitors never see a half-built page. If something goes wrong the page appears after 8 seconds anyway.
+- **Gallery by hand:** frames live in `src/data/frames.js`. To use a real photo without the admin, put it in `public/photos/` and add `src` and `alt` to the frame. `npm test` checks every frame is complete.
+
+### How the website gets its content
+
+When the page loads it asks the server for `/api/site` (`src/core/site.js`) and fills the page with the answer (`src/core/apply-site.js`). If the server isn't there, it quietly keeps the content already in the HTML. Text is always inserted as text, never as HTML.
+
+### The server
+
+- Routes are in `server/app.js`: a public API (`/api/site`, `/api/contact`), the admin API (`/api/admin/...`), the admin pages, uploaded photos, and the built site.
+- Data is stored with Node's built-in SQLite (`server/db.js`) in `data/site.db`. Uploaded photos go in `data/uploads/`.
+- Tests for the server are in `tests/server/` and run against a real server on a random port.
 
 ### How it keeps things safe
 
 - Passwords are stored as salted scrypt hashes. Sign-in cookies are `HttpOnly` and `SameSite=Strict`, and only a hash of each session token is stored.
-- Wrong passwords are rate limited (8 tries per 15 minutes), and so are contact messages (5 per hour per visitor, with a hidden spam trap).
-- Admin requests from other websites are refused.
-- Photos are accepted only if their contents really are JPEG, PNG, WebP or AVIF (SVG is refused because it can carry scripts), at most 8 MB, and are stored under random names.
-- Everything typed into the admin or the contact form is checked and length-limited. Links must be `https://`, `http://` or `mailto:`, and text is always shown as text, never as HTML.
+- Wrong passwords are rate limited (8 tries per 15 minutes), and so are contact messages (5 per hour per visitor, plus a hidden field that catches spam bots).
+- Admin requests that come from other websites are refused.
+- Photos are accepted only if their contents really are JPEG, PNG, WebP or AVIF (SVG is refused because it can carry scripts). They are stored under random names.
+- Everything typed into the admin or the Contact form is checked and length-limited. Links must be `https://`, `http://` or `mailto:`.
 - The admin page blocks inline scripts and loads only its own files.
 
-### Where things are
+## Troubleshooting
 
-```
-server/        The back-end (index.js starts it; app.js has the routes)
-admin/         The admin website (plain HTML, CSS and JavaScript, no build step)
-data/          Your database and uploaded photos (created on first run, not in git)
-src/core/site.js, apply-site.js   How the public site reads the content
-tests/server/  Tests for the back-end
-```
+**I forgot the admin password.** Stop the server and run `npm run admin:reset`. It prints a new password.
 
-The career roadmap chart on the About page and the page layouts are part of the site's code, not the admin. To change those, edit the HTML.
+**"The site has not been built yet" at http://localhost:3001.** That address serves the *built* site. Run `npm run build` first, or use http://localhost:5173 while developing.
 
-## Publishing on GitHub Pages
+**The admin works but my changes don't show on the site.** In development, open the site at http://localhost:5173 (not 3001) and make sure `npm run dev:all` is running, so the site can reach the server. Then refresh the page.
 
-`.github/workflows/deploy.yml` runs the tests on every push and pull request. When `main` changes, it also builds the site and publishes it.
+**An error mentioning `node:sqlite`.** Your Node.js is too old. Install version 22.13 or newer.
 
-One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions.** GitHub Pages on a private repository needs a paid GitHub plan.
+**"Port already in use".** Another program is using 5173 or 3001. Stop it, or change `PORT` in `.env`. If you change the server's port, also set `API_PORT` to the same number when you run `npm run dev`, so the site can find it.
+
+**The Contact form says "isn't connected yet".** The site can't reach the server. Start it with `npm run dev:all`, or add a form-service key (see [Option C](#option-c-the-site-only-no-server)).
+
+**A photo won't upload.** Photos must be JPEG, PNG, WebP or AVIF and at most 8 MB. Resize big photos first.
 
 ## License
 
